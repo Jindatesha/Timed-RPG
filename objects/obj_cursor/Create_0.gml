@@ -3,4 +3,15 @@
 x = mouse_x;
 y = mouse_y;
 
-depth = DEPTH.SMALLEST;
+starting_depth = DEPTH.CURSOR;
+depth = starting_depth;
+
+
+item_in_hand = -1;
+
+
+
+
+
+
+

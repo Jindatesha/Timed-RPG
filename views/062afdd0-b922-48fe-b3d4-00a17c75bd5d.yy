@@ -4,14 +4,13 @@
     "mvc": "1.1",
     "name": "062afdd0-b922-48fe-b3d4-00a17c75bd5d",
     "children": [
-        "e7d88dde-d14b-4ac3-ac9b-5a93f0a9c9cb",
-        "f48b3960-c3c2-4da3-a578-d7ba5f0e78de",
+        "ca37eaa3-68c7-4417-a465-ba0440ff1bdf",
         "36f72612-b9dd-4c3e-bc0f-fdacc90de2ae",
-        "46170713-ce99-4531-b2ae-44baa18b9283",
         "e5013dbe-89c1-4cd1-b66b-a154c84f81eb",
-        "4e1af924-6a64-437e-a06f-e93ed367a013",
-        "b3624c60-d1cd-40d0-8032-fb30a04b8368",
-        "b59d4cf9-8b1f-4781-b8f9-c6c14140a509"
+        "05fec517-4dc9-40ad-bc79-1e06d430a089",
+        "b59d4cf9-8b1f-4781-b8f9-c6c14140a509",
+        "3b7f820c-9eb9-4e34-927e-c3370f2a47bf",
+        "c33043eb-370a-4f17-b387-9d8c67090dc7"
     ],
     "filterType": "GMSprite",
     "folderName": "SLIME",
