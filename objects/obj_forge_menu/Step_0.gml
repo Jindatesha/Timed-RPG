@@ -71,7 +71,7 @@ if mouse_wheel_down()
 
 
 //cap the scroll so u dont go beyond all the item_sheets in either up or down
-scroll_amount = clamp(scroll_amount,-1 * ((what_item_list_to_use_array[selected_tab] * sprite_get_height(spr_ui_forge_crafting_sheet)) - surface_get_height(sheets_surface)),0);
+scroll_amount = clamp(scroll_amount,-1 * ((how_many_total_items_in_this_item_type_array[selected_tab] * sprite_get_height(spr_ui_forge_crafting_sheet)) - surface_get_height(sheets_surface)),0);
 
 
 

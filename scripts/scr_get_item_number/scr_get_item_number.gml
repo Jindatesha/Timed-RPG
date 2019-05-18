@@ -7,7 +7,7 @@
 switch(argument[0])
 {
 	default:
-	case spr_item_drop_materials:
+	case spr_all_materials:
 		return image_index;
 	break;
 

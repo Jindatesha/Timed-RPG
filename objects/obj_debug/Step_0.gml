@@ -27,9 +27,10 @@ if spawn_item > 0
 	{
 		
 		my_item_number = irandom_range(0, HELMETS_LIST.LAST_IN_LIST - 1);
-		scr_get_variables_from_item_number();		
-		image_index = my_item_number - last_item_number;
-		
+		sprite_index = ds_grid_get(global.item_database_grid,THIS_ITEMS.SPRITE_INDEX,my_item_number);		
+		image_index = ds_grid_get(global.item_database_grid,THIS_ITEMS.IMAGE_INDEX,my_item_number);
+		my_item_class = ds_grid_get(global.item_database_grid,THIS_ITEMS.ITEM_CLASS,my_item_number);
+
 	}
 
 }

@@ -114,10 +114,34 @@ enum WEAPON_LIST
 	LAST_IN_LIST
 }
 
+
+//helmets list
+enum HELMETS_LIST
+{
+	BASIC = WEAPON_LIST.LAST_IN_LIST,
+	LAST_IN_LIST
+}
+
+
+//torso list
+enum TORSO_LIST
+{
+	BASIC = HELMETS_LIST.LAST_IN_LIST,
+	LAST_IN_LIST
+}
+
+//pants list
+enum PANTS_LIST
+{
+	BASIC = TORSO_LIST.LAST_IN_LIST,
+	LAST_IN_LIST
+}
+
+
 //boots list
 enum BOOTS_LIST
 {
-	BASIC = WEAPON_LIST.LAST_IN_LIST,
+	BASIC = PANTS_LIST.LAST_IN_LIST,
 	LAST_IN_LIST
 }
 
@@ -135,26 +159,7 @@ enum GLOVES_LIST
 	LAST_IN_LIST
 }
 
-//torso list
-enum TORSO_LIST
-{
-	BASIC = GLOVES_LIST.LAST_IN_LIST,
-	LAST_IN_LIST
-}
 
-//pants list
-enum PANTS_LIST
-{
-	BASIC = TORSO_LIST.LAST_IN_LIST,
-	LAST_IN_LIST
-}
-
-//pants list
-enum HELMETS_LIST
-{
-	BASIC = PANTS_LIST.LAST_IN_LIST,
-	LAST_IN_LIST
-}
 
 
 
@@ -190,7 +195,7 @@ ds_list_add(global.monster_drop_list,slime_drop_list);
 
 
 // WEAPONS
-//basic sword
+//basic sword (wont be needed (add to grid...but ill change this later))
 global.weapons_array[0,WEAPON_ATTRIBUTE.SPRITE] = spr_weapon_sword_basic;
 global.weapons_array[0,WEAPON_ATTRIBUTE.IMAGE_SPEED] = 1.45;
 global.weapons_array[0,WEAPON_ATTRIBUTE.DAMAGE] = 25;
@@ -216,6 +221,87 @@ global.can_move_towards_mouse = true;
 
 
 
+
+enum THIS_ITEMS
+{
+	SPRITE_INDEX = 0,
+	IMAGE_INDEX,
+	ITEM_CLASS
+}
+
+
+
+
+
+#region ALL items data-base
+global.item_database_grid = ds_grid_create(3,0);
+
+//materials
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.SLIME,ITEM_CLASS.MATERIAL);//item # 0 = slime
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.ICE_BLOCK,ITEM_CLASS.MATERIAL);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.GOLD_GEM,ITEM_CLASS.MATERIAL);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.PURPLE_GEM,ITEM_CLASS.MATERIAL);
+
+//weapons
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.SWORD_TWO,ITEM_CLASS.WEAPON);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
+
+
+//helmets
+scr_add_item_to_database_grid(spr_all_helmets,HELMETS_LIST.BASIC,ITEM_CLASS.HELMET);
+
+//torso
+scr_add_item_to_database_grid(spr_all_torsos,TORSO_LIST.BASIC,ITEM_CLASS.TORSO);
+
+//pants
+scr_add_item_to_database_grid(spr_all_pants,PANTS_LIST.BASIC,ITEM_CLASS.PANTS);
+
+//boots
+scr_add_item_to_database_grid(spr_all_boots,BOOTS_LIST.BASIC,ITEM_CLASS.BOOTS);
+
+//rings
+scr_add_item_to_database_grid(spr_all_rings,RING_LIST.BASIC,ITEM_CLASS.RING);
+
+//gloves
+scr_add_item_to_database_grid(spr_all_gloves,GLOVES_LIST.BASIC,ITEM_CLASS.GLOVES);
+
+
+
+
+
+#endregion
+
+
+
+
+#region craftable items recipe info
+global.item_forge_grid = ds_grid_create(13,0);
+	
+//fill grid info
+
+//weapons
+scr_add_item_to_forge_grid(WEAPON_LIST.BASIC,"Starting sword",MATERIAL_LIST.SLIME,2,MATERIAL_LIST.ICE_BLOCK,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_TWO,"The PURPLE sword of goodness",MATERIAL_LIST.GOLD_GEM,2,MATERIAL_LIST.SLIME,1,MATERIAL_LIST.PURPLE_GEM,3,MATERIAL_LIST.ICE_BLOCK,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_3,"",0,2,1,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_4,"",0,2,1,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_5,"",0,2,1,1);
+
+//helmets
+scr_add_item_to_forge_grid(HELMETS_LIST.BASIC,"Starting helmet",MATERIAL_LIST.SLIME,1,MATERIAL_LIST.ICE_BLOCK,1,MATERIAL_LIST.PURPLE_GEM,3);
+
+//torso
+//pants
+//boots
+//rings
+//gloves
+
+
+
+
+#endregion
 
 
 

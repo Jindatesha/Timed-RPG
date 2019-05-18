@@ -2,7 +2,7 @@
     "id": "e4d0217a-8ed6-4e4c-bc70-2c80302c8ce5",
     "modelName": "GMSprite",
     "mvc": "1.12",
-    "name": "spr_item_drop_materials",
+    "name": "spr_all_materials",
     "For3D": false,
     "HTile": false,
     "VTile": false,

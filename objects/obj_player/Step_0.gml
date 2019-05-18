@@ -322,26 +322,17 @@ if call_inventory > 0
 				//create and place the visual item
 				with (instance_create_depth(starting_inventory_x + inventory_slots_pos_array[i,0],starting_inventory_y + inventory_slots_pos_array[i,1],depth - 1,obj_item_in_inventory))
 				{
-					//create a enum sprite list for weapons and for equipment
+					//create an enum sprite list for weapons and for equipment					
+					my_item_number = ds_list_find_value(other.inventory_list,i);					
 					
-					my_item_number = ds_list_find_value(other.inventory_list,i);
-					last_item_number = 0;
+					// based on item number; what class and sprite_index are you?										
+					sprite_index = ds_grid_get(global.item_database_grid,THIS_ITEMS.SPRITE_INDEX,my_item_number);		
+					image_index = ds_grid_get(global.item_database_grid,THIS_ITEMS.IMAGE_INDEX,my_item_number);
+					my_item_class = ds_grid_get(global.item_database_grid,THIS_ITEMS.ITEM_CLASS,my_item_number);					
 					
-					// based on item number; what class and sprite_index are you?
-					//var throw_away_var_list = ds_list_create();
-					scr_get_variables_from_item_number();
-
-					
-					//last_item_number = ds_list_find_value(temp_variables_list,0);
-					//sprite_index = ds_list_find_value(temp_variables_list,1);
-					//my_item_class = ds_list_find_value(temp_variables_list,2);
-					
-					//clean up that list
-					//ds_list_destroy(temp_variables_list);
-					
-					image_index = my_item_number - last_item_number;
+	
 					image_speed = 0;
-					//class = 
+					
 					current_inventory_slot = i;
 					slot_placement_x = obj_player.inventory_slots_pos_array[i,0];
 					slot_placement_y = obj_player.inventory_slots_pos_array[i,1];

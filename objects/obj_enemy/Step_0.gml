@@ -41,7 +41,7 @@ if my_hp <= 0
 		{		
 			with (instance_create_depth(x + (30 * i),y + (30 * i),depth,obj_item_on_floor))
 			{
-				sprite_index = spr_item_drop_materials;
+				sprite_index = spr_all_materials;
 				image_index = what_item_image_to_use;
 				my_item_number = scr_get_item_number(sprite_index,image_index);
 			}
