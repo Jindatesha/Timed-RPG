@@ -43,12 +43,12 @@ for(var i = 0; i < 7; i += 1)
 
 
 
-
+surface_set_target(sheets_surface);
+draw_clear_alpha(c_black, 0);
 //for the selected tab (lets draw all the item sheets)
 for(var i = 0; i < how_many_total_items_in_this_item_type_array[selected_tab]; i += 1;)
 {
-	surface_set_target(sheets_surface);
-	draw_clear_alpha(c_black, 0);
+	
 	var this_sheets_x = 0;
 	var this_sheets_y = (sprite_get_height(spr_ui_forge_crafting_sheet) * i) + scroll_amount;
 	draw_sprite(spr_ui_forge_crafting_sheet, i mod 2,this_sheets_x,this_sheets_y);
@@ -58,7 +58,6 @@ for(var i = 0; i < how_many_total_items_in_this_item_type_array[selected_tab]; i
 	
 	
 	//our items image for what this sheet can create
-	check = i + starting_list_number_array[selected_tab];
 	var this_items_item_number = ds_grid_get(global.item_forge_grid,0,i + starting_list_number_array[selected_tab]);
 	
 	var this_items_sprite_index = ds_grid_get(global.item_database_grid,THIS_ITEMS.SPRITE_INDEX,this_items_item_number);
@@ -87,6 +86,7 @@ for(var i = 0; i < how_many_total_items_in_this_item_type_array[selected_tab]; i
 	//for the forge button...later
 	var can_we_forge_this_item = 1;//0 = no and 1 == yes
 	
+	//draw all the materials in their respective recipe block
 	repeat(6)
 	{
 		var this_items_material_item_number = ds_grid_get(global.item_forge_grid,material_number,i + starting_list_number_array[selected_tab]);
@@ -108,7 +108,7 @@ for(var i = 0; i < how_many_total_items_in_this_item_type_array[selected_tab]; i
 			var bag_slot_number = 0;
 			var in_bag_this_material_count = 0;
 			
-			repeat(9)
+			repeat(players_bag_size)
 			{
 				if ds_list_find_value(obj_player.inventory_list,8 + bag_slot_number) == this_items_material_item_number
 				{
@@ -142,33 +142,91 @@ for(var i = 0; i < how_many_total_items_in_this_item_type_array[selected_tab]; i
 	
 	
 	
+	// this is where to be drawn on the surface
+	var this_forge_buttons_x_on_surface = this_sheets_x + 930;
+	var this_forge_buttons_y_on_surface = this_sheets_y + 300;
+	var stating_loc_for_sheets = 167;
+	var this_forge_buttons_x = x + this_sheets_x + 930;
+	var this_forge_buttons_y = y + this_sheets_y + stating_loc_for_sheets + 300;
+	draw_sprite(spr_ui_forge_button,can_we_forge_this_item,this_forge_buttons_x_on_surface,this_forge_buttons_y_on_surface);
 	
-	var this_forge_buttons_x = this_sheets_x + 930;
-	var this_forge_buttons_y = this_sheets_y + 300;
-	draw_sprite(spr_ui_forge_button,can_we_forge_this_item,this_forge_buttons_x,this_forge_buttons_y);
-	
-	//did we click inside the forge button?
 	if can_we_forge_this_item == 1
 	{
-		if mouse_x > this_forge_buttons_x and mouse_x < this_forge_buttons_x + sprite_get_width(spr_ui_forge_button) and mouse_y > this_forge_buttons_y and mouse_y < this_forge_buttons_y + sprite_get_height(spr_ui_forge_button)
+		//did we click inside the forge button?
+		if mouse_check_button_pressed(mb_left)
 		{
-			if mouse_check_button_pressed(mb_left)
+			if mouse_x >= this_forge_buttons_x  and mouse_x <= this_forge_buttons_x + sprite_get_width(spr_ui_forge_button) and mouse_y >= this_forge_buttons_y and mouse_y <= this_forge_buttons_y + sprite_get_height(spr_ui_forge_button)
 			{
+			
+				
+				
 				//get rid of all the materials in our inventory that are required by the item we are wanting the blacksmith to make
+				var material_number = 2;
+				repeat(6)
+				{
+					var this_items_material_item_number = ds_grid_get(global.item_forge_grid,material_number,i + starting_list_number_array[selected_tab]);
+					var this_materials_count = ds_grid_get(global.item_forge_grid,material_number + 1,i + starting_list_number_array[selected_tab]);
+		
+					if this_items_material_item_number != -1
+					{
+		
+						//organize all of our materials in our inventory!
+						var players_bag_size = 9;
+						var bag_slot_number = 0;
+			
+						repeat(players_bag_size)
+						{
+							if this_materials_count > 0
+							{
+								if ds_list_find_value(obj_player.inventory_list,8 + bag_slot_number) == this_items_material_item_number
+								{
+									//subtract the count
+									this_materials_count -= 1;
+							
+									//remove this item from our inventory
+									ds_list_replace(obj_player.inventory_list,8 + bag_slot_number,-1);
+								}
+							}
+							else
+							{
+								break;
+							}
+							
+							bag_slot_number += 1;
+						
+						}
+				
+					}
+					
+					material_number += 2;
+				}
 				
 				
 				
+				//now that we removed all the necessary materials to forge our item...put it in the players inventory
+				var bag_slot_number = 0;
+				repeat(players_bag_size)
+				{
+					if ds_list_find_value(obj_player.inventory_list,8 + bag_slot_number) == -1
+					{
+						ds_list_replace(obj_player.inventory_list,8 + bag_slot_number,this_items_item_number);
+						break;
+					}
+					
+					bag_slot_number += 1;
+				}
 				
-			}
+				
+			}	
+				
 		}
 	}
 	
-	
-	surface_reset_target();
-	draw_surface(sheets_surface,x,y + 167);
+
 }
 
-
+surface_reset_target();
+draw_surface(sheets_surface,x,y + 167);
 
 
 

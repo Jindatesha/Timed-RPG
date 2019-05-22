@@ -53,27 +53,22 @@ if my_hp <= 0
 	
 	
 	
-	
+	//add it to the obj_spawners list with these variables..to be respawned in later
 	with (obj_enemy_spawner)
 	{
-		ds_list_add(spawner_enemy_list,other.id);
+		
+		ds_list_add(spawner_enemy_list,other.object_index);
+		ds_list_add(spawner_enemy_list,current_room_number);
 		ds_list_add(spawner_enemy_list,other.my_respawn_rate);
 	}
 	
-	//random_location ...take into account our sprite (prevent us from getting stuck in walls)
-	do
-	{
-		x = irandom_range(0 + sprite_width,room_width - sprite_width);
-		y = irandom_range(0 + sprite_width,room_height - sprite_width);
-	}
-	until(!place_meeting(x,y,obj_solid) and (point_distance(x,y,obj_player.x,obj_player.y) > 200) and (place_meeting(x,y,obj_spawn_area)))
-	
-	my_hp = my_max_hp;
-	hp_lossed = 0;
-	show_health_timer = 0;
 	
 	
-	instance_deactivate_object(id);
+	//get rid of this instance
+	instance_destroy();
+	
+	
+	
 	
 }
 

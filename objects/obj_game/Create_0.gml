@@ -171,6 +171,25 @@ enum FADE
 
 
 
+//monstertype and room_number are for the spawn system
+//monster types
+enum MONSTER_TYPE
+{
+	SLIME = obj_enemy_slime
+}
+
+
+
+//what room are we in?
+enum ROOM_NUMBER
+{
+	NO_ENEMY_ZONE = -1,
+	SLIME_ZONE = 0
+}
+
+
+
+
 
 slime_list_1 = ds_list_create();
 ds_list_add(slime_list_1,MATERIAL_LIST.NOTHING);
@@ -293,6 +312,8 @@ scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_5,"",0,2,1,1);
 scr_add_item_to_forge_grid(HELMETS_LIST.BASIC,"Starting helmet",MATERIAL_LIST.SLIME,1,MATERIAL_LIST.ICE_BLOCK,1,MATERIAL_LIST.PURPLE_GEM,3);
 
 //torso
+scr_add_item_to_forge_grid(TORSO_LIST.BASIC,"Starting torso",MATERIAL_LIST.SLIME,1);
+
 //pants
 //boots
 //rings

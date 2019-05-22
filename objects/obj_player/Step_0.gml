@@ -237,12 +237,12 @@ if global.player_has_attacked == true
 //horizontal
 if place_meeting(x + h_speed, y,obj_solid)
 {
-	while !place_meeting(x + sign(h_speed), y,obj_solid)
+	while (!place_meeting(x + sign(h_speed), y,obj_solid))
 	{
 		x += sign(h_speed);			
 	}
 	
-	h_speed = 0;
+	h_speed = 0;		
 }
 else
 {

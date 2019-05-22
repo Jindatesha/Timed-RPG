@@ -263,6 +263,14 @@
             }
         },
         {
+            "Key": "35399866-2fa1-4dc3-b205-7aaded659e24",
+            "Value": {
+                "id": "bcfbf0eb-e5bc-49af-94b5-f5225fe5f713",
+                "resourcePath": "objects\\obj_enemy_slime\\obj_enemy_slime.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "36f72612-b9dd-4c3e-bc0f-fdacc90de2ae",
             "Value": {
                 "id": "28e4fce0-f5b4-4b98-8216-dd268e965038",
