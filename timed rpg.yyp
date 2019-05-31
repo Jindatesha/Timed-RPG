@@ -87,6 +87,14 @@
             }
         },
         {
+            "Key": "0aee731c-f234-435d-9b58-2d1e00076085",
+            "Value": {
+                "id": "ec9664b9-c1e0-4a8d-8ce0-0de8160e8438",
+                "resourcePath": "objects\\obj_enemy_boss_slime\\obj_enemy_boss_slime.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "0b6683dd-77a6-4995-b234-03aa39332028",
             "Value": {
                 "id": "6de5d40f-83b2-450e-9ecb-306ee7e78b71",
@@ -364,6 +372,14 @@
                 "id": "a4778a0d-fa35-42b0-ab5a-4a0fad111a2e",
                 "resourcePath": "views\\49ca262c-4cba-4185-ae2c-bf0c44ad89b9.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "4a534d68-02f9-4c0d-9e82-dbde8b7ac513",
+            "Value": {
+                "id": "da6dedc5-1c54-44ed-a992-d4a7a8c211a4",
+                "resourcePath": "rooms\\rm_boss\\rm_boss.yy",
+                "resourceType": "GMRoom"
             }
         },
         {

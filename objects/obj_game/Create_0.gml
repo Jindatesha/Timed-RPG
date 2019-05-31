@@ -266,39 +266,39 @@ scr_initialize_level_nodes();
 
 
 #region ALL items data-base
-global.item_database_grid = ds_grid_create(3,0);
+global.item_database_grid = ds_grid_create(4,0);
 
 //materials
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.SLIME,ITEM_CLASS.MATERIAL);//item # 0 = slime
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.ICE_BLOCK,ITEM_CLASS.MATERIAL);
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.GOLD_GEM,ITEM_CLASS.MATERIAL);
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.PURPLE_GEM,ITEM_CLASS.MATERIAL);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.SLIME,ITEM_CLASS.MATERIAL,0);//item # 0 = slime
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.ICE_BLOCK,ITEM_CLASS.MATERIAL,0);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.GOLD_GEM,ITEM_CLASS.MATERIAL,0);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.PURPLE_GEM,ITEM_CLASS.MATERIAL,0);
 
 //weapons
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.SWORD_TWO,ITEM_CLASS.WEAPON);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.SWORD_TWO,ITEM_CLASS.WEAPON,0);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
 
 
 //helmets
-scr_add_item_to_database_grid(spr_all_helmets,HELMETS_LIST.BASIC,ITEM_CLASS.HELMET);
+scr_add_item_to_database_grid(spr_all_helmets,HELMETS_LIST.BASIC,ITEM_CLASS.HELMET,0);
 
 //torso
-scr_add_item_to_database_grid(spr_all_torsos,TORSO_LIST.BASIC,ITEM_CLASS.TORSO);
+scr_add_item_to_database_grid(spr_all_torsos,TORSO_LIST.BASIC,ITEM_CLASS.TORSO,100);
 
 //pants
-scr_add_item_to_database_grid(spr_all_pants,PANTS_LIST.BASIC,ITEM_CLASS.PANTS);
+scr_add_item_to_database_grid(spr_all_pants,PANTS_LIST.BASIC,ITEM_CLASS.PANTS,0);
 
 //boots
-scr_add_item_to_database_grid(spr_all_boots,BOOTS_LIST.BASIC,ITEM_CLASS.BOOTS);
+scr_add_item_to_database_grid(spr_all_boots,BOOTS_LIST.BASIC,ITEM_CLASS.BOOTS,0);
 
 //rings
-scr_add_item_to_database_grid(spr_all_rings,RING_LIST.BASIC,ITEM_CLASS.RING);
+scr_add_item_to_database_grid(spr_all_rings,RING_LIST.BASIC,ITEM_CLASS.RING,0);
 
 //gloves
-scr_add_item_to_database_grid(spr_all_gloves,GLOVES_LIST.BASIC,ITEM_CLASS.GLOVES);
+scr_add_item_to_database_grid(spr_all_gloves,GLOVES_LIST.BASIC,ITEM_CLASS.GLOVES,0);
 
 
 
@@ -349,5 +349,14 @@ my_alpha = 1.3;
 depth = DEPTH.SMALLEST;
 
 
+global.time = 0;
+
+var seconds = 60;
+var minutes = 2;
+
+
+global.time_until_boss = room_speed * (seconds) * (minutes)
+
+has_spawned_boss = false;
 
 

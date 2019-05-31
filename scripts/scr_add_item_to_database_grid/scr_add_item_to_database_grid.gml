@@ -4,6 +4,11 @@
 /// @param sprite_index
 /// @param image_index
 /// @param item_class
+
+//stats for this item
+
+/// @param HP
+
 /*
 dmg
 atk speed,
@@ -13,7 +18,7 @@ etc...
 
 
 var i = 0;
-var number_of_variables_these_items_have = 3;
+var number_of_variables_these_items_have = 4;
 
 //add +1 to our row
 ds_grid_resize(global.item_database_grid,ds_grid_width(global.item_database_grid),ds_grid_height(global.item_database_grid) + 1);

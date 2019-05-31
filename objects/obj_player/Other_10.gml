@@ -1,5 +1,10 @@
 
-//update character stats
+///update character stats
+
+
+
+
+
 var active_nodes_total_gained_hp = 0;
 
 
@@ -31,9 +36,26 @@ for (var i = 0; i < total_nodes; i += 1;)
 
 
 
-//pull out stats from those
+
+//gather stats now from our equipment
+var equipment_total_gained_hp = 0;
+var i = 0;
+repeat(8)
+{
+	
+	var this_equipment_slot_item_number = ds_list_find_value(inventory_list,i);
+	
+	if this_equipment_slot_item_number != -1
+	{
+		equipment_total_gained_hp += ds_grid_get(global.item_database_grid,3,this_equipment_slot_item_number);
+	}
+	
+	i += 1;
+}
+
+
 // set stats for player
-my_max_hp = starting_hp + active_nodes_total_gained_hp;
+my_max_hp = starting_hp + active_nodes_total_gained_hp + equipment_total_gained_hp;
 
 
 

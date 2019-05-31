@@ -1,6 +1,10 @@
-/// @description Insert description here
-// You can write your code in this editor
 
+//since im the boss...
+if my_hp <= 0
+{
+	//if i die...restart the game
+	game_restart();
+}
 
 
 
