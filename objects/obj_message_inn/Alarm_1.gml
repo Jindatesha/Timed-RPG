@@ -9,7 +9,7 @@ with (obj_player)
 					
 	my_weapons[current_weapon].visible = true;
 	can_switch_state = true;
-	current_state = potential_state[POTENTIAL_STATE.DOWN];
+	current_state = STATE.WALK;
 	global.freeze_character = false;
 					
 	//move the player downwards

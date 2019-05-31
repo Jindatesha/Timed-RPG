@@ -108,17 +108,7 @@ if global.freeze_character == false
 if can_switch_state == true
 {
 	 //what state am I in?
-
-	if (mouse_dir >= 0 and mouse_dir < 22)  current_state = potential_state[POTENTIAL_STATE.SIDE]; 	
-	if (mouse_dir >= 337 and mouse_dir <= 360)  current_state = potential_state[POTENTIAL_STATE.SIDE]; 	
-	if mouse_dir >= 22 and mouse_dir < 67 current_state = potential_state[POTENTIAL_STATE.DIAG_UP];
-	if mouse_dir >= 67 and mouse_dir < 112 current_state = potential_state[POTENTIAL_STATE.UP];
-	if mouse_dir >= 112 and mouse_dir < 157 current_state = potential_state[POTENTIAL_STATE.DIAG_UP];
-	if mouse_dir >= 157 and mouse_dir < 202 current_state = potential_state[POTENTIAL_STATE.SIDE];
-	if mouse_dir >= 202 and mouse_dir < 247 current_state = potential_state[POTENTIAL_STATE.DIAG_DOWN];
-	if mouse_dir >= 247 and mouse_dir < 292 current_state = potential_state[POTENTIAL_STATE.DOWN];
-	if mouse_dir >= 292 and mouse_dir < 337 current_state = potential_state[POTENTIAL_STATE.DIAG_DOWN];
-
+	current_state = STATE.WALK;
 }
 #endregion
 
@@ -145,24 +135,9 @@ if can_switch_state == true and dodge_roll > 0 and trying_to_move_in_any_directi
 	
 	
 
-	if (dodge_roll_dir >= 0 and dodge_roll_dir < 22)  
-	{	
-		current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_SIDE];
-		can_switch_state = false;
-		can_control_player = false;		
-	}
 	
+	current_state = STATE.DODGE_ROLL;
 	
-	//depending on the direction will determine which sprite to use
-	if dodge_roll_dir >= 337 and dodge_roll_dir <= 360 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_SIDE];
-	if dodge_roll_dir >= 22 and dodge_roll_dir < 67 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_DIAG_UP];
-	if dodge_roll_dir >= 67 and dodge_roll_dir < 112 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_UP];
-	if dodge_roll_dir >= 112 and dodge_roll_dir < 157 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_DIAG_UP];
-	if dodge_roll_dir >= 157 and dodge_roll_dir < 202 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_SIDE];
-	if dodge_roll_dir >= 202 and dodge_roll_dir < 247 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_DIAG_DOWN];
-	if dodge_roll_dir >= 247 and dodge_roll_dir < 292 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_DOWN];	
-	if dodge_roll_dir >= 292 and dodge_roll_dir < 337 current_state = potential_state[POTENTIAL_STATE.DODGE_ROLL_DIAG_DOWN];
-		
 	
 	
 	
@@ -539,10 +514,60 @@ if pick_up_item > 0
 #endregion
 
 
+
+#region Die
+
+//LATER: make sure to save any achievements
+
+//LATER: go into a death animation with a spotlight on you...then a menu comes with stats and was killed by:  ie: enter the gungeon
+
+
+if my_hp <= 0
+{
+
+	//LATER: dont simply restart the whole game...but go back to a certain menu
+	game_restart();
+
+}
+
+
+
+#endregion
+
+
+#region Level Up
+
+if my_current_exp >= my_total_exp_required_till_next_level
+{
+	my_level += 1;//gain a level
+	my_total_exp_required_till_next_level *= 1.2;// increase required exp 
+	my_total_exp_required_till_next_level = round(my_total_exp_required_till_next_level);//just in case...no decimals
+	my_current_exp = 0;//reset current exp
+	my_spec_points += 1;
+}
+
+#endregion
+
+
+
+
 //finally set our sprites image
-sprite_index = current_state;
+sprite_index = sprite_state_array[current_state];
 
 
+
+//opening node level up menu
+if (keyboard_check_pressed(vk_down))
+{ 	
+	with (instance_create_layer(x,y,0,obj_level_up_ui))
+	{
+		current_player = other.id;
+		changed_spec_points = other.my_spec_points;
+		changed_nodes_unlocked_list = ds_list_create();
+		ds_list_copy(changed_nodes_unlocked_list,other.nodes_unlocked_list);
+		event_user(0);
+	}
+}
 
 
 

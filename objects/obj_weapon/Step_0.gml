@@ -62,6 +62,9 @@ if use == true
 					my_hp -= other.my_damage;
 					show_health_timer = show_health_max_time;
 					hp_lossed = other.my_damage;
+					scr_knock_back(60,other.image_angle);
+					scr_damage_numbers(hp_lossed,other.image_angle);
+					
 				}
 				
 				i += 1;

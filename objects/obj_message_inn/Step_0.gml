@@ -43,7 +43,7 @@ if instance_exists(obj_player)
 	obj_player.my_weapons[obj_player.current_weapon].visible = false;
 	obj_player.can_switch_state = false;
 	global.freeze_character = true;
-	obj_player.current_state = obj_player.potential_state[POTENTIAL_STATE.UP];
+	obj_player.current_state = STATE.WALK;
 	
 }
 

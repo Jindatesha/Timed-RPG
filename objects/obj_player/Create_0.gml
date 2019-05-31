@@ -1,21 +1,11 @@
 
 
 //normal movement
-potential_state[POTENTIAL_STATE.SIDE] = spr_player_move_side;
-potential_state[POTENTIAL_STATE.UP] = spr_player_move_up;
-potential_state[POTENTIAL_STATE.DOWN] = spr_player_move_down;
-potential_state[POTENTIAL_STATE.DIAG_UP] = spr_player_move_diag_up;
-potential_state[POTENTIAL_STATE.DIAG_DOWN] = spr_player_move_diag_down;
-
-//dodgeroll
-potential_state[POTENTIAL_STATE.DODGE_ROLL_SIDE] = spr_player_move_dodge_roll_side;
-potential_state[POTENTIAL_STATE.DODGE_ROLL_UP] = spr_player_move_dodge_roll_up;
-potential_state[POTENTIAL_STATE.DODGE_ROLL_DOWN] = spr_player_move_dodge_roll_down;
-potential_state[POTENTIAL_STATE.DODGE_ROLL_DIAG_UP] = spr_player_move_dodge_roll_diag_up;
-potential_state[POTENTIAL_STATE.DODGE_ROLL_DIAG_DOWN] = spr_player_move_dodge_roll_diag_down;
 
 
-current_state = potential_state[POTENTIAL_STATE.SIDE];
+current_state = STATE.WALK;
+sprite_state_array[STATE.WALK] = spr_player_move_side;
+sprite_state_array[STATE.DODGE_ROLL] = spr_player_move_dodge_roll_side;
 can_switch_state = true;
 
 image_speed = 0.4;
@@ -73,7 +63,13 @@ attack_thrust_total_frames = room_speed * 0.13;
 attack_thrust_current_frame = 0;
 
 
-my_max_hp = 1000;
+//starting stats
+starting_hp = 1000;
+
+
+
+
+my_max_hp = starting_hp;
 my_hp = my_max_hp;
 hp_lossed = 0;
 show_health_reduction_timer = 0;
@@ -153,6 +149,26 @@ inventory_slots_pos_array[16,1] = 610;//y
 
 
 
+my_current_exp = 0;
+my_total_exp_required_till_next_level = 100;
+my_level = 1;
+
+
+
+//do we have this levels key? for draw hud
+has_key = false;
+
+//for node setup and for spec points
+my_spec_points = 3; //should be zero in the beginning
+
+
+//this list will be what nodes we have unlocked
+nodes_unlocked_list = ds_list_create();
+
+for(var n = 0; n < ds_grid_height(global.node_grid); n += 1;)
+{
+	ds_list_add(nodes_unlocked_list,ds_grid_get(global.node_grid,3,n));	
+}
 
 
 

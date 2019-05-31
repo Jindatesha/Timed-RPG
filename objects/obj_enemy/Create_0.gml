@@ -1,6 +1,12 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+current_state = STATE.WALK;
+
+sprite_state_array[STATE.WALK] = spr_enemy_slime_move_side;
+//sprite_state_array[STATE.DODGE_ROLL] = spr_player_move_dodge_roll_side;
+
+
 my_max_hp = 100;
 my_hp = my_max_hp;
 my_speed = 1.7;
@@ -24,18 +30,6 @@ my_attack_reload_time = room_speed * 2;
 can_move = true;
 can_switch_state = true;
 
-//normal movement
-potential_state[POTENTIAL_STATE.SIDE] = spr_enemy_slime_move_side;
-potential_state[POTENTIAL_STATE.UP] = spr_enemy_slime_move_up;
-potential_state[POTENTIAL_STATE.DOWN] = spr_enemy_slime_move_down;
-potential_state[POTENTIAL_STATE.DIAG_UP] = spr_enemy_slime_move_diag_up;
-potential_state[POTENTIAL_STATE.DIAG_DOWN] = spr_enemy_slime_move_diag_down;
-
-potential_state[POTENTIAL_STATE.ATTACK_SIDE] = spr_enemy_slime_move_side;
-potential_state[POTENTIAL_STATE.ATTACK_UP] = spr_enemy_slime_move_up;
-potential_state[POTENTIAL_STATE.ATTACK_DOWN] = spr_enemy_slime_move_down;
-potential_state[POTENTIAL_STATE.ATTACK_DIAG_UP] = spr_enemy_slime_move_diag_up;
-potential_state[POTENTIAL_STATE.ATTACK_DIAG_DOWN] = spr_enemy_slime_move_diag_down;
 
 
 is_attacking = false;
@@ -46,5 +40,11 @@ my_attack_range = sprite_get_width(my_attack_collision_image) * 0.8;
 
 my_monster_type = MONSTER.SLIME;
 
+h_speed = 0;
+v_speed = 0;
+
+
+//how much this monster drops in terms of exp
+my_death_exp_reward = 10;
 
 

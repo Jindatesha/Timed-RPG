@@ -9,7 +9,8 @@ depth = starting_depth;
 
 item_in_hand = -1;
 
-
+olde_mouse_x = x;
+olde_mouse_y = y;
 
 
 

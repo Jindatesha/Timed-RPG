@@ -3,7 +3,7 @@
 
 //initialize
 current_room_number = ROOM_NUMBER.NO_ENEMY_ZONE;
-//potentially save these eventually otherwise some clown is going to break this system by leaving the game and coming back in
+
 
 //create a list of enemies to spawn for each of our rooms
 rooms_that_spawn_enemies = 1;

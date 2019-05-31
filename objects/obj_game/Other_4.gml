@@ -4,7 +4,7 @@
 
 has_started_fading = true;
 obj_player.can_switch_state = false;
-obj_player.current_state = obj_player.potential_state[POTENTIAL_STATE.SIDE]; 
+obj_player.current_state = STATE.WALK; 
 alarm[0] = fade_in_max_time;
 
 

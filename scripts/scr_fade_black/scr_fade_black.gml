@@ -15,7 +15,8 @@ if instance_exists(obj_player)
 	obj_player.can_switch_state = false;
 }
 
-
+//prevent the screenshake from continuing passed one attack
+global.player_has_attacked = false;
 
 global.transition_fade_alpha += in_out/fade_out_max_time;
 global.transition_fade_alpha = clamp(global.transition_fade_alpha,0,1);

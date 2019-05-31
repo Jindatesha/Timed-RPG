@@ -2,26 +2,6 @@
 // You can write your code in this editor
 
 
-enum POTENTIAL_STATE
-{
-	SIDE,
-	UP,
-	DOWN,
-	DIAG_UP,
-	DIAG_DOWN,
-	DODGE_ROLL_SIDE,
-	DODGE_ROLL_UP,
-	DODGE_ROLL_DOWN,
-	DODGE_ROLL_DIAG_UP,
-	DODGE_ROLL_DIAG_DOWN,
-	ATTACK_SIDE,
-	ATTACK_UP,
-	ATTACK_DOWN,
-	ATTACK_DIAG_UP,
-	ATTACK_DIAG_DOWN
-	
-	
-}
 
 
 #macro view view_camera[0]
@@ -35,7 +15,7 @@ enum POTENTIAL_STATE
 
 enum DEPTH
 {
-	CURSOR = -15,
+	CURSOR = -30,
 	BELOW_CURSOR = -14,
 	SMALLEST = -9,
 	PLAYER = 0,
@@ -70,6 +50,9 @@ enum WEAPON_ATTRIBUTE
 6 = torso
 7 = legs
 */
+
+
+
 enum ITEM_CLASS
 {
 	ANYTHING,
@@ -188,6 +171,17 @@ enum ROOM_NUMBER
 }
 
 
+//state the player or enemy is in...and will determine their sprite index
+enum STATE
+{
+	WALK,
+	DODGE_ROLL,
+	ATTACK,
+	ATTACK_WIND,
+	LAST
+}
+
+
 
 
 
@@ -247,6 +241,25 @@ enum THIS_ITEMS
 	IMAGE_INDEX,
 	ITEM_CLASS
 }
+
+
+
+enum NODE_TYPE
+{
+	EMPTY,
+	STARTING,
+	STRENGTH,
+	DEXTERITY,
+	INTELLEGENCE,
+	HEALTH,
+	KNOCKBACK
+}
+
+
+global.how_many_active_players = 1;
+
+//for node set up
+scr_initialize_level_nodes();
 
 
 

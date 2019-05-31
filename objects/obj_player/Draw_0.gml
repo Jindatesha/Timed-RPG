@@ -27,6 +27,18 @@ if show_health_reduction_timer > 0
 draw_sprite_part(spr_ui_player_health_bar,0,0,0, sprite_get_width(spr_ui_player_health_bar) * (my_hp/my_max_hp),sprite_get_height(spr_ui_player_health_bar),starting_health_bar_x,starting_health_bar_y);
 
 	
+	
+#region Exp Bar
+
+draw_set_font(font_inn);
+draw_set_halign(fa_left);
+draw_set_valign(fa_middle);
+
+draw_text(view_x + 100,view_y + 200,"LVL: " + string(my_level));
+
+#endregion
+	
+	
 
 #region Inventory
 

@@ -161,5 +161,36 @@ if item_in_hand != -1
 
 
 
+//assuming we are looking at nodes
+if mouse_check_button(mb_middle)
+{
+	
+	var change_in_mouse_x = mouse_x - olde_mouse_x;
+	var change_in_mouse_y = mouse_y - olde_mouse_y;
+	
+		
+	if instance_exists(obj_node)
+	{
+		with(obj_node)
+		{
+			x += change_in_mouse_x;
+			y += change_in_mouse_y;
+		}
+	}
+	
+	
+}
+
+
+
+
+
+//update olde mouse positions
+olde_mouse_x = mouse_x;
+olde_mouse_y = mouse_y;
+
+
+
+
 
 

@@ -110,7 +110,7 @@ if button_select_pushed > 0
 				{
 					my_weapons[current_weapon].visible = true;
 					can_switch_state = true;
-					current_state = potential_state[POTENTIAL_STATE.DOWN];
+					current_state = STATE.WALK;
 					global.freeze_character = false;
 					global.can_move_towards_mouse = true;
 					
