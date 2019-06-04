@@ -111,6 +111,14 @@
             }
         },
         {
+            "Key": "0d3bdec8-4e3f-48b9-8a1a-e18e3a076199",
+            "Value": {
+                "id": "070ffa7a-1f4e-438b-af11-6196fed403dd",
+                "resourcePath": "scripts\\scr_add_weapon_to_weapons_stats_database_grid\\scr_add_weapon_to_weapons_stats_database_grid.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "0fb1cb14-10ca-4e44-a7cd-8be6f9eb7a8c",
             "Value": {
                 "id": "6fc3d6c4-f86b-4fef-bf4c-9f1735ae618a",
@@ -175,11 +183,27 @@
             }
         },
         {
+            "Key": "1ad035ee-eaab-4f61-851d-d1d1e4d65195",
+            "Value": {
+                "id": "358efe19-60e4-4d8c-bc7d-6d2670b9f0a2",
+                "resourcePath": "sprites\\spr_weapon_sword_basic_combo_2\\spr_weapon_sword_basic_combo_2.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "1c447d64-14e4-4a00-b888-f6ecea792c81",
             "Value": {
                 "id": "7353100f-e72f-4758-bd64-51a0e236f871",
                 "resourcePath": "scripts\\scr_can_we_deactivate_this_node\\scr_can_we_deactivate_this_node.yy",
                 "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "1d08e7a0-e8e2-4f0a-8369-4c1144066a83",
+            "Value": {
+                "id": "649abd7d-5bf1-428c-a8d3-a26bc506bc5b",
+                "resourcePath": "sprites\\spr_weapon_sword_basic_combo_1\\spr_weapon_sword_basic_combo_1.yy",
+                "resourceType": "GMSprite"
             }
         },
         {
@@ -1087,7 +1111,8 @@
         "95f31f7a-aeaf-4ee0-acdf-3a5afa32727f",
         "184730a1-1005-465e-9061-bd37db8c0981",
         "51a8f8da-6cef-4163-89b3-9639559ca272",
-        "1c447d64-14e4-4a00-b888-f6ecea792c81"
+        "1c447d64-14e4-4a00-b888-f6ecea792c81",
+        "0d3bdec8-4e3f-48b9-8a1a-e18e3a076199"
     ],
     "tutorial": ""
 }

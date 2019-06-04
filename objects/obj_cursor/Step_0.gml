@@ -65,7 +65,10 @@ if mouse_check_button_released(mb_left) and item_in_hand != -1
 					y = obj_player.starting_inventory_y + slot_placement_y;
 				}
 			
-			
+				with(obj_player)
+				{
+					event_user(0);
+				}
 			}
 			else
 			{
@@ -96,6 +99,14 @@ if mouse_check_button_released(mb_left) and item_in_hand != -1
 					ds_list_replace(obj_player.inventory_list,current_inventory_slot,-1);
 					current_inventory_slot = new_slot.current_inventory_slot;
 					ds_list_replace(obj_player.inventory_list,current_inventory_slot,my_item_number);
+				
+				
+					//recalc players stats
+					with(obj_player)
+					{
+						event_user(0);
+					}
+				
 				}
 				else
 				{

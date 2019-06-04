@@ -1,7 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-//controls
+
+
+#region controls
 var move_left = keyboard_check(ord("A"));
 var move_right = keyboard_check(ord("D"));
 var move_up = keyboard_check(ord("W"));
@@ -27,18 +29,25 @@ if move_left > 0 or move_right > 0 or move_up > 0 or move_down > 0
 }
 
 
+var reduce_speed = 1;
+
+if can_control_player == false 
+{
+	reduce_speed = 0;
+}
+
+var h_speed = ((move_right - move_left) * move_speed) * reduce_speed;
+var v_speed = ((move_down - move_up) * move_speed) * reduce_speed;
 
 
-var h_speed = (move_right - move_left) * move_speed;
-var v_speed = (move_down - move_up) * move_speed;
 
-
-
-
+#endregion
 
 
 
 #region switching hands for holding weapon and image scale based on mouse_dir
+
+
 //mouse direction
 if can_switch_state == true
 {
@@ -115,7 +124,7 @@ if can_switch_state == true
 
 
 #region dodgeroll
-if can_switch_state == true and dodge_roll > 0 and trying_to_move_in_any_direction == true
+if can_switch_state == true and dodge_roll > 0 and trying_to_move_in_any_direction == true and can_control_player == true
 {
 	dodge_roll_dir = point_direction(x,y,x + h_speed, y + v_speed);
 	is_dodge_rolling = true;
@@ -177,12 +186,16 @@ else
 
 
 
-#region attack/ weapon use  
+#region attack/ weapon use 
+
+
+
 //if use weapon ....... and can attack
 if use_weapon > 0 and my_weapons[current_weapon].use == false
 {
 	my_weapons[current_weapon].use = true;
 	my_weapons[current_weapon].has_done_hit_collisions = false;
+	my_weapons[current_weapon].attack_count += 1;
 	global.player_has_attacked = true;
 	attack_thrust_current_frame = 0;
 	can_control_player = false;
@@ -199,7 +212,8 @@ if global.player_has_attacked == true
 	if attack_thrust_current_frame >= attack_thrust_total_frames
 	{
 		global.player_has_attacked = false;
-		can_control_player = true;
+		
+		attack_thrust_current_frame = 0;
 	}
 }
 
@@ -208,6 +222,10 @@ if global.player_has_attacked == true
 
 
 #region horizontal/vertical movement & collision
+
+
+
+
 
 //horizontal
 if place_meeting(x + h_speed, y,obj_solid)
@@ -537,6 +555,7 @@ if my_hp <= 0
 
 #region Level Up
 
+//if we have enough experience then level up
 if my_current_exp >= my_total_exp_required_till_next_level
 {
 	my_level += 1;//gain a level
@@ -546,13 +565,6 @@ if my_current_exp >= my_total_exp_required_till_next_level
 	my_spec_points += 1;
 }
 
-#endregion
-
-
-
-
-//finally set our sprites image
-sprite_index = sprite_state_array[current_state];
 
 
 
@@ -568,6 +580,19 @@ if (keyboard_check_pressed(vk_down))
 		event_user(0);
 	}
 }
+
+
+
+#endregion
+
+
+
+
+//finally set our sprites image
+sprite_index = sprite_state_array[current_state];
+
+
+
 
 
 

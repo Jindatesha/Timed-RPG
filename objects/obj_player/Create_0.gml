@@ -45,7 +45,7 @@ with (instance_create_depth(x,y,DEPTH.PLAYER,obj_weapon))
 	owner = other.id;
 	owner.my_weapons[0] = id;
 	my_weapon_number = 0;
-	sprite_index = global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.SPRITE];
+	sprite_index = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.SPRITE,my_weapon_number);
 	my_damage = global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.DAMAGE];
 	mask_index = global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.COLLISION_SPRITE];
 	my_item_number = MATERIAL_LIST.LAST_IN_LIST;
@@ -108,7 +108,7 @@ ds_list_add(inventory_list,my_weapons[0].my_item_number,-1);
 ds_list_add(inventory_list,-1,-1,-1,-1,-1,-1);
 
 //normal
-ds_list_add(inventory_list,-1,-1,-1,-1,-1,-1,-1,-1,-1);
+ds_list_add(inventory_list,11,-1,-1,-1,-1,-1,-1,-1,-1);
 
 
 //create array of all the slot positions in our inventory
@@ -171,6 +171,9 @@ for(var n = 0; n < ds_grid_height(global.node_grid); n += 1;)
 }
 
 
+//just in case you are testing stuff...we can check if there are already nodes placed or stuff in our inventory
+//recalc your stats
+event_user(0);
 
-
-
+//only here...reset current hp
+my_hp = my_max_hp;

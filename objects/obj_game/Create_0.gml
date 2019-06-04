@@ -215,7 +215,9 @@ global.weapons_array[0,WEAPON_ATTRIBUTE.DAMAGE] = 25;
 global.weapons_array[0,WEAPON_ATTRIBUTE.COLLISION_SPRITE] = spr_weapon_sword_basic_collision;
 global.weapons_array[0,WEAPON_ATTRIBUTE.COLLISION_NUMBER] = 4;
 
+global.weapons_grid = ds_grid_create(5,0);
 
+scr_add_weapon_to_weapons_stats_database_grid(spr_weapon_sword_basic,1.45,25,spr_weapon_sword_basic_collision,4);
 
 
 //globals
@@ -256,6 +258,14 @@ enum NODE_TYPE
 }
 
 
+enum ITEM_SET_BONUS
+{
+	NONE
+}
+
+
+
+
 global.how_many_active_players = 1;
 
 //for node set up
@@ -266,39 +276,39 @@ scr_initialize_level_nodes();
 
 
 #region ALL items data-base
-global.item_database_grid = ds_grid_create(4,0);
+global.item_database_grid = ds_grid_create(5,0);
 
 //materials
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.SLIME,ITEM_CLASS.MATERIAL,0);//item # 0 = slime
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.ICE_BLOCK,ITEM_CLASS.MATERIAL,0);
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.GOLD_GEM,ITEM_CLASS.MATERIAL,0);
-scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.PURPLE_GEM,ITEM_CLASS.MATERIAL,0);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.SLIME,ITEM_CLASS.MATERIAL);//item # 0 = slime
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.ICE_BLOCK,ITEM_CLASS.MATERIAL);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.GOLD_GEM,ITEM_CLASS.MATERIAL);
+scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.PURPLE_GEM,ITEM_CLASS.MATERIAL);
 
 //weapons
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.SWORD_TWO,ITEM_CLASS.WEAPON,0);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,0);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.SWORD_TWO,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
 
 
 //helmets
-scr_add_item_to_database_grid(spr_all_helmets,HELMETS_LIST.BASIC,ITEM_CLASS.HELMET,0);
+scr_add_item_to_database_grid(spr_all_helmets,HELMETS_LIST.BASIC,ITEM_CLASS.HELMET,ITEM_SET_BONUS.NONE,0);
 
 //torso
-scr_add_item_to_database_grid(spr_all_torsos,TORSO_LIST.BASIC,ITEM_CLASS.TORSO,100);
+scr_add_item_to_database_grid(spr_all_torsos,TORSO_LIST.BASIC,ITEM_CLASS.TORSO,ITEM_SET_BONUS.NONE,100);
 
 //pants
-scr_add_item_to_database_grid(spr_all_pants,PANTS_LIST.BASIC,ITEM_CLASS.PANTS,0);
+scr_add_item_to_database_grid(spr_all_pants,PANTS_LIST.BASIC,ITEM_CLASS.PANTS,ITEM_SET_BONUS.NONE,300);
 
 //boots
-scr_add_item_to_database_grid(spr_all_boots,BOOTS_LIST.BASIC,ITEM_CLASS.BOOTS,0);
+scr_add_item_to_database_grid(spr_all_boots,BOOTS_LIST.BASIC,ITEM_CLASS.BOOTS,ITEM_SET_BONUS.NONE,0);
 
 //rings
-scr_add_item_to_database_grid(spr_all_rings,RING_LIST.BASIC,ITEM_CLASS.RING,0);
+scr_add_item_to_database_grid(spr_all_rings,RING_LIST.BASIC,ITEM_CLASS.RING,ITEM_SET_BONUS.NONE,0);
 
 //gloves
-scr_add_item_to_database_grid(spr_all_gloves,GLOVES_LIST.BASIC,ITEM_CLASS.GLOVES,0);
+scr_add_item_to_database_grid(spr_all_gloves,GLOVES_LIST.BASIC,ITEM_CLASS.GLOVES,ITEM_SET_BONUS.NONE,0);
 
 
 
@@ -328,6 +338,7 @@ scr_add_item_to_forge_grid(HELMETS_LIST.BASIC,"Starting helmet",MATERIAL_LIST.SL
 scr_add_item_to_forge_grid(TORSO_LIST.BASIC,"Starting torso",MATERIAL_LIST.SLIME,1);
 
 //pants
+scr_add_item_to_forge_grid(PANTS_LIST.BASIC,"Starting pantsss man",MATERIAL_LIST.SLIME,2);
 //boots
 //rings
 //gloves

@@ -22,7 +22,8 @@ else
 	depth = obj_player.depth - 1;
 }
 
-
+//clamp attack count for combos...up to 3 attacks
+attack_count = clamp(attack_count,0,3);
 
 //you have used the weapon (attacked)
 if use == true
@@ -39,6 +40,8 @@ if use == true
 		use = false;
 		image_index = 0;
 		image_speed = 0;
+		
+		obj_player.can_control_player = true;
 	}
 	
 	
@@ -76,5 +79,17 @@ if use == true
 	
 	}
 }
+else
+{
+
+	
+	{
+		attack_count -= 1;
+		
+	}
+
+
+}
+
 
 

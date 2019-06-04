@@ -39,8 +39,8 @@ for (var i = 0; i < total_nodes; i += 1;)
 
 //gather stats now from our equipment
 var equipment_total_gained_hp = 0;
-var i = 0;
-repeat(8)
+var i = 2; //2 because weapon slots wont provide stats
+repeat(6)
 {
 	
 	var this_equipment_slot_item_number = ds_list_find_value(inventory_list,i);
@@ -57,7 +57,7 @@ repeat(8)
 // set stats for player
 my_max_hp = starting_hp + active_nodes_total_gained_hp + equipment_total_gained_hp;
 
-
+my_hp = clamp(my_hp,0,my_max_hp);
 
 
 
