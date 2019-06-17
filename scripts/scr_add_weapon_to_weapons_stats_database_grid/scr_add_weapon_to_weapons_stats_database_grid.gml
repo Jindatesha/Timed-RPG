@@ -2,7 +2,7 @@
 //item# = height
 
 /// @param sprite_index
-/// @param image_speed
+/// @param attack_image_speed
 /// @param damage
 /// @param collision_sprite_index
 /// @param collision_image_number this is what image in the attack animation to spawn the collision check sprite

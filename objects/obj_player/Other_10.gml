@@ -47,7 +47,7 @@ repeat(6)
 	
 	if this_equipment_slot_item_number != -1
 	{
-		equipment_total_gained_hp += ds_grid_get(global.item_database_grid,3,this_equipment_slot_item_number);
+		equipment_total_gained_hp += ds_grid_get(global.item_database_grid,EQUIPMENT_STATS.HP,this_equipment_slot_item_number);
 	}
 	
 	i += 1;

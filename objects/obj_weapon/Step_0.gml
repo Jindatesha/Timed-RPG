@@ -29,7 +29,7 @@ attack_count = clamp(attack_count,0,3);
 if use == true
 {
 	//make it animate
-	image_speed = global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.IMAGE_SPEED];
+	image_speed = my_attack_image_speed;
 	
 	//collision stuff
 	
@@ -49,7 +49,7 @@ if use == true
 	if has_done_hit_collisions == false
 	{
 		
-		if floor(image_index) == global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.COLLISION_NUMBER]
+		if floor(image_index) == image_number_to_spawn_hit_collider
 		{
 			
 				
@@ -65,7 +65,7 @@ if use == true
 					my_hp -= other.my_damage;
 					show_health_timer = show_health_max_time;
 					hp_lossed = other.my_damage;
-					scr_knock_back(60,other.image_angle);
+					scr_knock_back(other.my_knockback_amount,other.image_angle);
 					scr_damage_numbers(hp_lossed,other.image_angle);
 					
 				}

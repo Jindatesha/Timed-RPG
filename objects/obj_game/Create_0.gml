@@ -208,16 +208,14 @@ ds_list_add(global.monster_drop_list,slime_drop_list);
 
 
 // WEAPONS
-//basic sword (wont be needed (add to grid...but ill change this later))
-global.weapons_array[0,WEAPON_ATTRIBUTE.SPRITE] = spr_weapon_sword_basic;
-global.weapons_array[0,WEAPON_ATTRIBUTE.IMAGE_SPEED] = 1.45;
-global.weapons_array[0,WEAPON_ATTRIBUTE.DAMAGE] = 25;
-global.weapons_array[0,WEAPON_ATTRIBUTE.COLLISION_SPRITE] = spr_weapon_sword_basic_collision;
-global.weapons_array[0,WEAPON_ATTRIBUTE.COLLISION_NUMBER] = 4;
-
 global.weapons_grid = ds_grid_create(5,0);
 
 scr_add_weapon_to_weapons_stats_database_grid(spr_weapon_sword_basic,1.45,25,spr_weapon_sword_basic_collision,4);
+
+
+
+
+
 
 
 //globals
@@ -261,6 +259,13 @@ enum NODE_TYPE
 enum ITEM_SET_BONUS
 {
 	NONE
+}
+
+
+
+enum EQUIPMENT_STATS
+{
+	HP = 4
 }
 
 
@@ -363,7 +368,7 @@ depth = DEPTH.SMALLEST;
 global.time = 0;
 
 var seconds = 60;
-var minutes = 2;
+var minutes = 15;
 
 
 global.time_until_boss = room_speed * (seconds) * (minutes)

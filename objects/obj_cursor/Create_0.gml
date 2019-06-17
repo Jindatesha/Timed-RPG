@@ -1,7 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
-x = mouse_x;
-y = mouse_y;
+x = device_mouse_x_to_gui(0);
+y = device_mouse_y_to_gui(0);
+
 
 starting_depth = DEPTH.CURSOR;
 depth = starting_depth;

@@ -23,7 +23,7 @@ depth = starting_depth;
 
 olde_h_speed = 0; 
 olde_v_speed = 0; 
-dodge_roll_speed = 3; //this is a multiplier to ur move_speed
+dodge_roll_speed = 15; //this is a multiplier to ur move_speed
 dodge_roll_dir = 0;
 is_dodge_rolling = false;
 
@@ -46,11 +46,15 @@ with (instance_create_depth(x,y,DEPTH.PLAYER,obj_weapon))
 	owner.my_weapons[0] = id;
 	my_weapon_number = 0;
 	sprite_index = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.SPRITE,my_weapon_number);
-	my_damage = global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.DAMAGE];
-	mask_index = global.weapons_array[my_weapon_number,WEAPON_ATTRIBUTE.COLLISION_SPRITE];
-	my_item_number = MATERIAL_LIST.LAST_IN_LIST;
+	my_damage = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.DAMAGE,my_weapon_number);
+	mask_index = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.COLLISION_SPRITE,my_weapon_number);
+	my_item_number = WEAPON_LIST.BASIC;
 	my_item_class = ITEM_CLASS.WEAPON;
+	my_attack_image_speed = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.IMAGE_SPEED,my_weapon_number);
+	image_number_to_spawn_hit_collider = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.COLLISION_NUMBER,my_weapon_number);
 }
+
+
 
 switch_hand_degree_margin = 20;
 weapon_hand = 1;//1 = right hand  -1 = left hand

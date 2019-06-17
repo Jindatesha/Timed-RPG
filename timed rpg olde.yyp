@@ -439,6 +439,14 @@
             }
         },
         {
+            "Key": "5532b7ac-971d-4c97-8028-cae7816f2fac",
+            "Value": {
+                "id": "470060f3-13d0-4e9f-aa1b-21b1ecc0e7cd",
+                "resourcePath": "sprites\\spr_hud\\spr_hud.yy",
+                "resourceType": "GMSprite"
+            }
+        },
+        {
             "Key": "55511b4a-7e59-401e-af31-51b2e085ed21",
             "Value": {
                 "id": "fc00b46c-0873-4ea3-b64e-9d8167ea2486",
@@ -743,6 +751,14 @@
             }
         },
         {
+            "Key": "a98acd2b-6d81-4f23-a7d1-bfe47c40a68f",
+            "Value": {
+                "id": "9c7e92b2-9c9b-44d0-8ba4-6cf628c1fe5c",
+                "resourcePath": "fonts\\font_small_hud_bars\\font_small_hud_bars.yy",
+                "resourceType": "GMFont"
+            }
+        },
+        {
             "Key": "aa6d607b-156c-43ee-a133-8cf8d35c3153",
             "Value": {
                 "id": "6801a10c-1f85-47e4-915c-c3f2027b3a04",
@@ -962,7 +978,7 @@
             "Key": "d936596e-55b6-446a-a859-cd63b9357a15",
             "Value": {
                 "id": "da39a1f0-335f-4599-a8f0-dc1dd667933c",
-                "resourcePath": "sprites\\spr_ui_player_health_backing\\spr_ui_player_health_backing.yy",
+                "resourcePath": "sprites\\spr_ui_player_exp_bar\\spr_ui_player_exp_bar.yy",
                 "resourceType": "GMSprite"
             }
         },

@@ -1,14 +1,14 @@
 /// @description Insert description here
 // You can write your code in this editor
-x = mouse_x;
-y = mouse_y;
+x = device_mouse_x_to_gui(0);
+y = device_mouse_y_to_gui(0);
 
 //if we are moving items in our inventory
-if place_meeting(x,y,obj_item_in_inventory) and mouse_check_button_pressed(mb_left) 
+if place_meeting(mouse_x,mouse_y,obj_item_in_inventory) and mouse_check_button_pressed(mb_left) 
 {
 	sprite_index = spr_cursor_hand_grab;
 	mask_index = spr_cursor_hand_grab;
-	item_in_hand = instance_nearest(x,y,obj_item_in_inventory);
+	item_in_hand = instance_nearest(mouse_x,mouse_y,obj_item_in_inventory);
 	item_in_hand.depth -= 1;	
 }
 
@@ -165,8 +165,8 @@ if item_in_hand != -1
 {
 	with (item_in_hand)
 	{
-		x = other.x;
-		y = other.y;
+		x = mouse_x;
+		y = mouse_y;
 	}
 }
 

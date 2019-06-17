@@ -20,7 +20,7 @@ global.player_has_attacked = false;
 
 global.transition_fade_alpha += in_out/fade_out_max_time;
 global.transition_fade_alpha = clamp(global.transition_fade_alpha,0,1);
-draw_sprite_stretched_ext(spr_black,0,view_x,view_y,view_w,view_h,c_white,global.transition_fade_alpha);
+draw_sprite_stretched_ext(spr_black,0,0,0,view_w,view_h,c_white,global.transition_fade_alpha);
 	
 	
 	
