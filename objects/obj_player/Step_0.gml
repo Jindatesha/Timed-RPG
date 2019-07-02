@@ -9,9 +9,15 @@ var move_right = keyboard_check(ord("D"));
 var move_up = keyboard_check(ord("W"));
 var move_down = keyboard_check(ord("S"));
 
-var dodge_roll = mouse_check_button_pressed(mb_right);
+
+var dodge_roll = keyboard_check_pressed(vk_space);
 
 var use_weapon = mouse_check_button_pressed(mb_left);
+var use_weapon_special = mouse_check_button(mb_right);
+
+var pick_up_item = keyboard_check_pressed(ord("E"));
+
+var use_utility_item = keyboard_check_pressed(ord("Q"));
 
 var call_inventory = keyboard_check_pressed(vk_tab);
 
@@ -113,11 +119,11 @@ if can_switch_state == true
 
 if global.freeze_character == false
 {
-#region statemachine~ normal movement
-if can_switch_state == true
+#region idle
+if can_switch_state == true and is_dodge_rolling == false
 {
 	 //what state am I in?
-	current_state = STATE.WALK;
+	current_state = STATE.IDLE;
 }
 #endregion
 
@@ -153,10 +159,10 @@ if can_switch_state == true and dodge_roll > 0 and trying_to_move_in_any_directi
 	can_switch_state = false;
 	can_control_player = false;	
 	image_index = 0;
-	alarm[0] = round((sprite_get_number(current_state)) * 4);
+	alarm[0] = round((sprite_get_number(sprite_state_array[STATE.DODGE_ROLL])) * 4);
 	
 	//now that we are dodge rolling, dont show the players weapon
-	my_weapons[current_weapon].visible = false;
+	my_weapon.visible = false;
 	
 	
 }
@@ -185,17 +191,15 @@ else
 #endregion
 
 
-
-#region attack/ weapon use 
-
+#region attacks/ weapon use & special
 
 
-//if use weapon ....... and can attack
-if use_weapon > 0 and my_weapons[current_weapon].use == false
+#region basic attack
+//if use weapon ....... and can attack (combo is 3)
+if use_weapon > 0 and my_weapon.can_attack == true 
 {
-	my_weapons[current_weapon].use = true;
-	my_weapons[current_weapon].has_done_hit_collisions = false;
-	my_weapons[current_weapon].attack_count += 1;
+	my_weapon.launch_attack = true;
+	my_weapon.has_done_hit_collisions = false;
 	global.player_has_attacked = true;
 	attack_thrust_current_frame = 0;
 	can_control_player = false;
@@ -216,6 +220,136 @@ if global.player_has_attacked == true
 		attack_thrust_current_frame = 0;
 	}
 }
+#endregion
+
+
+
+#region special
+
+special_attack_cooldown_timer -= 1;
+special_attack_cooldown_timer = clamp(special_attack_cooldown_timer,0,max_special_attack_cooldown_time);
+
+if special_attack_cooldown_timer <= 0 is_special_attack_on_cooldown = false;
+
+
+if use_weapon_special and my_weapon.can_attack == true and is_special_attack_on_cooldown == false and has_cast_spell == false
+{
+	is_casting_spell[0] = true;
+	which_spell = 0;
+	is_special_attack_on_cooldown = true;	
+	//can_control_player = false;
+	//can_switch_state = false;
+	
+
+	
+}
+
+
+
+//if a button has been pressed and held for casting a spell...
+if is_casting_spell[0] or is_casting_spell[1] or is_casting_spell[2]
+{
+		
+	switch(which_spell)
+	{
+		//special attack
+		default:
+		case 0:
+			//which special attack will depend what weapon you have
+			
+			if use_weapon_special == 0 and has_cast_spell == false
+			{		
+				current_state = STATE.ATTACK_SPECIAL;
+				has_cast_spell = true;
+				can_control_player = false;
+				can_switch_state = false;
+				is_casting_spell[0] = false;
+				special_attack_cooldown_timer = max_special_attack_cooldown_time;
+
+
+
+				alarm[0] = special_attack_time_till_player_can_move;
+				alarm[1] = max_special_attack_cooldown_time;
+				//warp to location (in direction of mouse)
+				var dir_of_mouse = point_direction(x,y,mouse_x,mouse_y);
+				
+				
+				//before we actually move...check for collisions to see about who is getting hit
+				with (instance_create_depth(x,y,depth,obj_hit_collision))
+				{
+					image_angle = dir_of_mouse;
+					sprite_index = spr_ability_dash_arrow_tail;
+					
+					var final_damage = other.my_damage * random_range(1,ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.MAX_WEAPON_DAMAGE_SCALE,other.my_weapon.my_weapon_number)) * 4;							
+					
+					var hit_list = ds_list_create();
+					var hit_count = instance_place_list(x,y,obj_enemy,hit_list,true);
+					var i = 0;
+					repeat(hit_count)
+					{
+						with (ds_list_find_value(hit_list,i))
+						{				
+							final_damage = floor(final_damage);
+							var crit_number_needed = 97;
+							var crit = irandom_range(0,100);
+							var has_crit = false;
+				
+							if crit_number_needed - crit  <= 0
+							{
+								//then we did crit
+								has_crit = true;
+								final_damage *= 2; 
+								final_damage = floor(final_damage);
+							}
+				
+							my_hp -= final_damage;
+							show_health_timer = show_health_max_time;
+							hp_lossed = final_damage;			
+							scr_damage_numbers(hp_lossed,dir_of_mouse,has_crit);
+				
+					
+						}
+				
+						i += 1;
+					}
+	
+					ds_list_destroy(hit_list);
+	
+					instance_destroy();
+	
+				}
+	
+						
+				
+				
+				
+				h_speed += lengthdir_x(length_of_dash,dir_of_mouse);
+				v_speed += lengthdir_y(length_of_dash,dir_of_mouse);
+				
+				//mask_index = spr_player_collision_mask;
+			}
+
+			
+			
+		break;
+		
+		//utility item : dummy
+		case 1:
+		
+		break;
+		
+		
+		//utility item: grappling hook
+		case 2:
+		
+		break;
+	}
+}
+
+
+#endregion
+
+
 
 #endregion
 
@@ -223,8 +357,16 @@ if global.player_has_attacked == true
 
 #region horizontal/vertical movement & collision
 
+//break up the movement collision into chunks (over several steps instead of one potentially skipping over a solid)
+//h_speed += over_fill_for_h_speed;
+//v_speed += over_fill_for_v_speed;
 
+//h_speed = (abs(h_speed) - 32)//its obj_solids width
 
+if (abs(v_speed) or abs(h_speed)) > 0 and is_dodge_rolling == false
+{
+	current_state = STATE.WALK;
+}
 
 
 //horizontal
@@ -286,7 +428,7 @@ if call_inventory > 0
 		obj_cursor.depth = depth - 1;
 	
 		//make sure sword doesnt get shown
-		my_weapons[current_weapon].visible = false;
+		my_weapon.visible = false;
 	
 		//make sure camera stops moving around
 		global.can_move_towards_mouse = false;
@@ -456,7 +598,7 @@ if call_inventory > 0
 		obj_cursor.depth = obj_cursor.starting_depth;
 	
 		//make sure sword doesnt get shown
-		my_weapons[current_weapon].visible = true;
+		my_weapon.visible = true;
 	
 		//make sure camera stops moving around
 		global.can_move_towards_mouse = true;
@@ -552,38 +694,6 @@ if my_hp <= 0
 
 #endregion
 
-
-#region Level Up
-
-//if we have enough experience then level up
-if my_current_exp >= my_total_exp_required_till_next_level
-{
-	my_level += 1;//gain a level
-	my_total_exp_required_till_next_level *= 1.2;// increase required exp 
-	my_total_exp_required_till_next_level = round(my_total_exp_required_till_next_level);//just in case...no decimals
-	my_current_exp = 0;//reset current exp
-	my_spec_points += 1;
-}
-
-
-
-
-//opening node level up menu
-if (keyboard_check_pressed(vk_down))
-{ 	
-	with (instance_create_layer(x,y,0,obj_level_up_ui))
-	{
-		current_player = other.id;
-		changed_spec_points = other.my_spec_points;
-		changed_nodes_unlocked_list = ds_list_create();
-		ds_list_copy(changed_nodes_unlocked_list,other.nodes_unlocked_list);
-		event_user(0);
-	}
-}
-
-
-
-#endregion
 
 
 

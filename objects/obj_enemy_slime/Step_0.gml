@@ -11,7 +11,15 @@ event_inherited();
 
 
 //if we are within range of the player...
-if distance_to_object(obj_player) <= my_range
+if has_been_aggroed == false and distance_to_object(obj_player) <= my_range
+{
+	has_been_aggroed = true;
+}
+
+
+
+//if has been aggroed then indefinitely follow and attack the player!
+if has_been_aggroed == true
 {
 	//start walking over to the player...to attack
 	var x_dif = obj_player.x - x;
@@ -50,14 +58,19 @@ if is_attacking == true
 	//break time_till attack original into equal fractions of the sprites image number
 	//and if it gets less than the next segment (+1 to image number)
 
-		
+	//attack wind up is now over
 	if time_till_attack <= 0 and has_ended_attack_wind_up == false
 	{
 		has_ended_attack_wind_up = true;
 		sprite_index = sprite_state_array[STATE.ATTACK];
-		image_speed = 1;//whatever the normal play speed is
-		
+		image_speed = 1;//whatever the normal play speed is		
 		alarm[0] = my_attack_reload_time;
+		
+		//set attack location
+		direction = point_direction(x,y,obj_player.x,obj_player.y);
+		location_to_attack_x = x + lengthdir_x(min(my_attack_length,abs(obj_player.x - x)),direction); 
+		location_to_attack_y = y + lengthdir_y(min(my_attack_length,abs(obj_player.y - y)),direction); 
+		 
 	}
 
 
@@ -67,14 +80,22 @@ if is_attacking == true
 
 	if has_ended_attack_wind_up == true and sprite_index == sprite_state_array[STATE.ATTACK]
 	{
-			
+		
+		//move to attack collider location
+		
+		var number_of_attack_frames = sprite_get_number(sprite_state_array[STATE.ATTACK]);
+		h_speed = (location_to_attack_x - x)/number_of_attack_frames;
+		v_speed = (location_to_attack_y - y)/number_of_attack_frames;
+		
+		
+		//during punch part where collider should check for player
 		if floor(image_index) == image_number - 1
 		{			
 				
 	
-			direction = point_direction(x,y,obj_player.x,obj_player.y);
 			
-			with instance_create_depth(x + lengthdir_x(sprite_width,direction),y + lengthdir_y(sprite_width,direction),depth,obj_enemy_attack_collision)
+			
+			with instance_create_depth(location_to_attack_x,location_to_attack_y,depth,obj_enemy_attack_collision)
 			{
 				my_damage = other.my_damage;
 				sprite_index = other.my_attack_collision_image;

@@ -22,7 +22,7 @@ if place_meeting(x,y,obj_player) and keyboard_check_pressed(ord("E"))
 
 	
 		//make players weapon invisible
-		obj_player.my_weapons[obj_player.current_weapon].visible = false;
+		obj_player.my_weapon.visible = false;
 
 
 	
@@ -35,7 +35,7 @@ if place_meeting(x,y,obj_player) and keyboard_check_pressed(ord("E"))
 
 	
 		//make players weapon visible
-		obj_player.my_weapons[obj_player.current_weapon].visible = true;
+		obj_player.my_weapon.visible = true;
 
 
 		//close the menu

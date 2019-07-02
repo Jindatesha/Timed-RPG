@@ -7,7 +7,7 @@ with (obj_player)
 {
 					
 					
-	my_weapons[current_weapon].visible = true;
+	my_weapon.visible = true;
 	can_switch_state = true;
 	current_state = STATE.WALK;
 	global.freeze_character = false;

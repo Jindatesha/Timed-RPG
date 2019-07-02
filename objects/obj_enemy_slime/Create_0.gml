@@ -18,7 +18,7 @@ has_ended_attack_wind_up = false;
 
 my_attack_wind_up_time = room_speed * 1;
 
-my_death_exp_reward = 50;
+my_attack_length = 130; //px possible attack length
 
 
 

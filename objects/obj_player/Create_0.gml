@@ -1,12 +1,20 @@
 
 
 //normal movement
-
-
 current_state = STATE.WALK;
+sprite_state_array[STATE.IDLE] = spr_player_anim_idle;
 sprite_state_array[STATE.WALK] = spr_player_move_side;
 sprite_state_array[STATE.DODGE_ROLL] = spr_player_move_dodge_roll_side;
+sprite_state_array[STATE.ATTACK_SPECIAL] = spr_player_move_dodge_roll_side;
 can_switch_state = true;
+
+
+
+//starting stats
+my_stats_array[PLAYER_STATS.HEALTH] = 1000;
+my_stats_array[PLAYER_STATS.STRENGTH] = 10;
+my_stats_array[PLAYER_STATS.ATTACK_SPEED] = 10;
+my_stats_array[PLAYER_STATS.CRIT_CHANCE] = 5;
 
 image_speed = 0.4;
 
@@ -43,15 +51,38 @@ current_weapon = 0;
 with (instance_create_depth(x,y,DEPTH.PLAYER,obj_weapon))
 {
 	owner = other.id;
-	owner.my_weapons[0] = id;
-	my_weapon_number = 0;
-	sprite_index = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.SPRITE,my_weapon_number);
-	my_damage = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.DAMAGE,my_weapon_number);
+	owner.my_weapon = id;
+	my_weapon_number = WEAPON_LIST.KATANA - MATERIAL_LIST.LAST_IN_LIST;
+	sprite_index = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.BASIC_ATTACK_1,my_weapon_number);
+	my_damage_scale_factor = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.DAMAGE_SCALE_FACTOR,my_weapon_number);
 	mask_index = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.COLLISION_SPRITE,my_weapon_number);
-	my_item_number = WEAPON_LIST.BASIC;
+	my_item_number = WEAPON_LIST.KATANA;
 	my_item_class = ITEM_CLASS.WEAPON;
 	my_attack_image_speed = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.IMAGE_SPEED,my_weapon_number);
 	image_number_to_spawn_hit_collider = ds_grid_get(global.weapons_grid,WEAPON_ATTRIBUTE.COLLISION_NUMBER,my_weapon_number);
+	
+	
+	my_rarity = EQUIPMENT_RARITY.COMMON;
+	var my_total_points = scr_get_total_points_from_rarity(my_rarity);
+	
+	var remaining_points = my_total_points;
+	var points_for_this_stat = irandom_range(0,remaining_points);
+	my_health = points_for_this_stat;
+	remaining_points -= points_for_this_stat;
+	
+	points_for_this_stat = irandom_range(0,remaining_points);
+	my_strength = points_for_this_stat;
+	remaining_points -= points_for_this_stat;
+	
+	points_for_this_stat = irandom_range(0,remaining_points);
+	my_attack_speed = points_for_this_stat;
+	remaining_points -= points_for_this_stat;
+	
+	//whatever is left put it in the last stat
+	my_crit_chance = remaining_points;
+
+	
+	
 }
 
 
@@ -68,16 +99,16 @@ attack_thrust_current_frame = 0;
 
 
 //starting stats
-starting_hp = 1000;
-
-
-
-
-my_max_hp = starting_hp;
+starting_hp = my_stats_array[PLAYER_STATS.HEALTH];
+my_damage = floor(my_weapon.my_damage_scale_factor * my_stats_array[PLAYER_STATS.STRENGTH]);
+my_max_hp = my_stats_array[PLAYER_STATS.HEALTH];
 my_hp = my_max_hp;
 hp_lossed = 0;
 show_health_reduction_timer = 0;
 show_health_max_reduction_time = room_speed * 0.6;
+
+
+
 
 
 starting_inventory_x = 0;
@@ -106,7 +137,7 @@ ie:
 */
 
 //weapon slots
-ds_list_add(inventory_list,my_weapons[0].my_item_number,-1);
+ds_list_add(inventory_list,my_weapon.my_item_number,-1);
 
 //equipment slots
 ds_list_add(inventory_list,-1,-1,-1,-1,-1,-1);
@@ -153,9 +184,7 @@ inventory_slots_pos_array[16,1] = 610;//y
 
 
 
-my_current_exp = 0;
-my_total_exp_required_till_next_level = 100;
-my_level = 1;
+
 
 
 
@@ -181,3 +210,27 @@ event_user(0);
 
 //only here...reset current hp
 my_hp = my_max_hp;
+
+
+
+//how long the special attack takes
+special_attack_time_till_player_can_move = 0.2 * room_speed;
+is_special_attack_on_cooldown = false;
+max_special_attack_cooldown_time = 5 * room_speed; 
+special_attack_cooldown_timer = max_special_attack_cooldown_time;
+length_of_dash = sprite_get_width(spr_ability_dash_arrow_tail);//pixel length of special dash attack with katana
+which_spell = -1;
+is_casting_spell[0] = false;
+is_casting_spell[1] = false;
+is_casting_spell[2] = false;
+has_cast_spell = false;
+
+
+ability_slot[0] = spr_ui_ability_katana_dash;
+
+
+cooldown_counter_aray[0] = 0;
+
+
+
+

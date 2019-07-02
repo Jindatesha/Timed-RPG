@@ -27,16 +27,6 @@ enum DEPTH
 
 
 
-enum WEAPON_ATTRIBUTE
-{
-	SPRITE,
-	IMAGE_SPEED,
-	DAMAGE,
-	COLLISION_SPRITE,
-	COLLISION_NUMBER
-
-}
-
 
 /*
 0 = wep 1
@@ -86,14 +76,14 @@ enum MATERIAL_LIST
 	
 }
 
-//weapons list
+
 enum WEAPON_LIST
 {
-	BASIC = MATERIAL_LIST.LAST_IN_LIST,
-	SWORD_TWO,
-	SWORD_3,
-	SWORD_4,
-	SWORD_5,
+	//BASIC = MATERIAL_LIST.LAST_IN_LIST,
+	KATANA = MATERIAL_LIST.LAST_IN_LIST,
+	SWORD_AND_SHIELD,
+	SCYTHE,
+	BOW,
 	LAST_IN_LIST
 }
 
@@ -121,26 +111,35 @@ enum PANTS_LIST
 }
 
 
-//boots list
-enum BOOTS_LIST
+enum UTILITY_LIST
 {
-	BASIC = PANTS_LIST.LAST_IN_LIST,
-	LAST_IN_LIST
+	DUMMY,
+	GRAPPLING_HOOK
 }
 
-//ring list
-enum RING_LIST
+
+
+
+
+
+
+
+enum WEAPON_ATTRIBUTE
 {
-	BASIC = BOOTS_LIST.LAST_IN_LIST,
-	LAST_IN_LIST
+	BASIC_ATTACK_1,
+	BASIC_ATTACK_2,
+	BASIC_ATTACK_3,
+	IMAGE_SPEED,
+	DAMAGE_SCALE_FACTOR,
+	COLLISION_SPRITE,
+	COLLISION_NUMBER,
+	BASIC_ATTACK_COOLDOWN,
+	MAX_WEAPON_DAMAGE_SCALE
+
 }
 
-//gloves list
-enum GLOVES_LIST
-{
-	BASIC = RING_LIST.LAST_IN_LIST,
-	LAST_IN_LIST
-}
+
+
 
 
 
@@ -171,13 +170,16 @@ enum ROOM_NUMBER
 }
 
 
+
 //state the player or enemy is in...and will determine their sprite index
 enum STATE
 {
+	IDLE,
 	WALK,
 	DODGE_ROLL,
 	ATTACK,
 	ATTACK_WIND,
+	ATTACK_SPECIAL,
 	LAST
 }
 
@@ -189,10 +191,10 @@ slime_list_1 = ds_list_create();
 ds_list_add(slime_list_1,MATERIAL_LIST.NOTHING);
 
 slime_list_2 = ds_list_create();
-ds_list_add(slime_list_2,MATERIAL_LIST.SLIME);
+ds_list_add(slime_list_2,WEAPON_LIST.KATANA);
 
 slime_list_3 = ds_list_create();
-ds_list_add(slime_list_3,MATERIAL_LIST.ICE_BLOCK);
+ds_list_add(slime_list_3,WEAPON_LIST.KATANA);
 
 
 //% and a list of what that drop entails 
@@ -208,9 +210,9 @@ ds_list_add(global.monster_drop_list,slime_drop_list);
 
 
 // WEAPONS
-global.weapons_grid = ds_grid_create(5,0);
+global.weapons_grid = ds_grid_create(9,0);
 
-scr_add_weapon_to_weapons_stats_database_grid(spr_weapon_sword_basic,1.45,25,spr_weapon_sword_basic_collision,4);
+scr_add_weapon_to_database_grid(spr_weapon_sword_basic,spr_weapon_sword_basic_combo_1,spr_weapon_sword_basic_combo_2,1.45,1.2,spr_weapon_sword_basic_collision,4,0,1.2);
 
 
 
@@ -221,8 +223,8 @@ scr_add_weapon_to_weapons_stats_database_grid(spr_weapon_sword_basic,1.45,25,spr
 //globals
 global.player_has_attacked = false;
 
-global.width = 3200;
-global.height = 1800;
+global.width = 3840;
+global.height = 2160;
 
 
 global.freeze_character = false;
@@ -270,6 +272,26 @@ enum EQUIPMENT_STATS
 
 
 
+enum PLAYER_STATS
+{
+	NOTHING = -1,
+	HEALTH = 0,
+	STRENGTH,
+	ATTACK_SPEED,
+	CRIT_CHANCE,
+	LAST_IN_LIST
+	
+}
+
+
+enum EQUIPMENT_RARITY
+{
+	COMMON,
+	RARE,
+	LEGENDARY
+
+}
+
 
 global.how_many_active_players = 1;
 
@@ -290,11 +312,11 @@ scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.GOLD_GEM,ITEM_CLAS
 scr_add_item_to_database_grid(spr_all_materials,MATERIAL_LIST.PURPLE_GEM,ITEM_CLASS.MATERIAL);
 
 //weapons
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.SWORD_TWO,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
-scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.BASIC,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.KATANA,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.KATANA,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.KATANA,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.KATANA,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
+scr_add_item_to_database_grid(spr_all_weapons,WEAPON_LIST.KATANA,ITEM_CLASS.WEAPON,ITEM_SET_BONUS.NONE);
 
 
 //helmets
@@ -305,15 +327,6 @@ scr_add_item_to_database_grid(spr_all_torsos,TORSO_LIST.BASIC,ITEM_CLASS.TORSO,I
 
 //pants
 scr_add_item_to_database_grid(spr_all_pants,PANTS_LIST.BASIC,ITEM_CLASS.PANTS,ITEM_SET_BONUS.NONE,300);
-
-//boots
-scr_add_item_to_database_grid(spr_all_boots,BOOTS_LIST.BASIC,ITEM_CLASS.BOOTS,ITEM_SET_BONUS.NONE,0);
-
-//rings
-scr_add_item_to_database_grid(spr_all_rings,RING_LIST.BASIC,ITEM_CLASS.RING,ITEM_SET_BONUS.NONE,0);
-
-//gloves
-scr_add_item_to_database_grid(spr_all_gloves,GLOVES_LIST.BASIC,ITEM_CLASS.GLOVES,ITEM_SET_BONUS.NONE,0);
 
 
 
@@ -330,11 +343,11 @@ global.item_forge_grid = ds_grid_create(13,0);
 //fill grid info
 
 //weapons
-scr_add_item_to_forge_grid(WEAPON_LIST.BASIC,"Starting sword",MATERIAL_LIST.SLIME,2,MATERIAL_LIST.ICE_BLOCK,1);
-scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_TWO,"The PURPLE sword of goodness",MATERIAL_LIST.GOLD_GEM,2,MATERIAL_LIST.SLIME,1,MATERIAL_LIST.PURPLE_GEM,3,MATERIAL_LIST.ICE_BLOCK,1);
-scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_3,"",0,2,1,1);
-scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_4,"",0,2,1,1);
-scr_add_item_to_forge_grid(WEAPON_LIST.SWORD_5,"",0,2,1,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.KATANA,"Starting sword",MATERIAL_LIST.SLIME,2,MATERIAL_LIST.ICE_BLOCK,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.KATANA,"The PURPLE sword of goodness",MATERIAL_LIST.GOLD_GEM,2,MATERIAL_LIST.SLIME,1,MATERIAL_LIST.PURPLE_GEM,3,MATERIAL_LIST.ICE_BLOCK,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.KATANA,"",0,2,1,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.KATANA,"",0,2,1,1);
+scr_add_item_to_forge_grid(WEAPON_LIST.KATANA,"",0,2,1,1);
 
 //helmets
 scr_add_item_to_forge_grid(HELMETS_LIST.BASIC,"Starting helmet",MATERIAL_LIST.SLIME,1,MATERIAL_LIST.ICE_BLOCK,1,MATERIAL_LIST.PURPLE_GEM,3);
@@ -344,9 +357,6 @@ scr_add_item_to_forge_grid(TORSO_LIST.BASIC,"Starting torso",MATERIAL_LIST.SLIME
 
 //pants
 scr_add_item_to_forge_grid(PANTS_LIST.BASIC,"Starting pantsss man",MATERIAL_LIST.SLIME,2);
-//boots
-//rings
-//gloves
 
 
 

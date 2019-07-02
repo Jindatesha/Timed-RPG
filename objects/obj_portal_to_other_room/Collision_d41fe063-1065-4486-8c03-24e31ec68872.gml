@@ -15,7 +15,7 @@ if has_started_fading == false
 	with (obj_player)
 	{
 		image_xscale = (sign(other.x - (room_width/2)));
-		my_weapons[current_weapon].visible = false;
+		my_weapon.visible = false;
 		current_state = STATE.WALK; 
 		can_switch_state = false;
 	}

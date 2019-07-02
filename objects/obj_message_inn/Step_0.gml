@@ -40,7 +40,7 @@ switch(button_dir)
 //dont allow the player to move or attack or change states
 if instance_exists(obj_player)
 {
-	obj_player.my_weapons[obj_player.current_weapon].visible = false;
+	obj_player.my_weapon.visible = false;
 	obj_player.can_switch_state = false;
 	global.freeze_character = true;
 	obj_player.current_state = STATE.WALK;

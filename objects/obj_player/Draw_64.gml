@@ -17,8 +17,8 @@ draw_sprite(spr_hud,0,hud_starting_x,hud_starting_y);
 
 
 #region draw_health bar
-var starting_health_bar_x = hud_starting_x + 5;
-var starting_health_bar_y = hud_starting_y + 142;
+var starting_health_bar_x = hud_starting_x;
+var starting_health_bar_y = hud_starting_y;
 
 
 show_health_reduction_timer -= 1;
@@ -44,25 +44,51 @@ draw_text(round(starting_health_bar_x + (sprite_get_width(spr_ui_player_health_b
 	
 	
 	
-#region Exp Bar
-var starting_exp_bar_x = starting_health_bar_x;
-var starting_exp_bar_y = starting_health_bar_y + 48;
+#region ability 0 (weapon special attack)
 
-//draw exp bar
-draw_sprite_part(spr_ui_player_exp_bar,0,0,0, sprite_get_width(spr_ui_player_exp_bar) * (my_current_exp/my_total_exp_required_till_next_level),sprite_get_height(spr_ui_player_exp_bar),starting_exp_bar_x,starting_exp_bar_y);
-
-//draw exp bar numbers
-draw_set_font(font_small_hud_bars);
-draw_set_halign(fa_center);
-draw_set_valign(fa_middle);
-draw_text(round(starting_exp_bar_x + (sprite_get_width(spr_ui_player_exp_bar)/2)),round(starting_exp_bar_y + (sprite_get_height(spr_ui_player_exp_bar)/2)),string(my_current_exp) + "/" + string(my_total_exp_required_till_next_level));
+var ability_0_pos_x = hud_starting_x + 161;
+var ability_0_pos_y = hud_starting_y + 77;
 
 
 
+cooldown_counter_aray[0] = 1 -  (special_attack_cooldown_timer/max_special_attack_cooldown_time);
+
+
+
+
+//backing
+draw_sprite_part_ext(spr_ui_ability_backing,1,0,0,sprite_get_width(spr_ui_ability_backing),sprite_get_height(spr_ui_ability_backing) * cooldown_counter_aray[0],ability_0_pos_x,ability_0_pos_y + sprite_get_height(spr_ui_ability_backing),1,-1,c_white,1);
+
+//ability image
+
+var is_ability_0_on_cooldown = 0;
+if special_attack_cooldown_timer > 0
+{
+	//if the ability is on cd then change to grayscale version
+	is_ability_0_on_cooldown = 1;
+}
+
+
+//sprite
+var diff = (sprite_get_width(spr_ui_ability_backing) - sprite_get_width(ability_slot[0]))/2;
+draw_sprite(ability_slot[0],is_ability_0_on_cooldown,ability_0_pos_x + diff,ability_0_pos_y + diff);
+
+
+var ability_0_seconds_left = round(special_attack_cooldown_timer/room_speed);
+if ability_0_seconds_left == 0
+{
+	ability_0_seconds_left = round((special_attack_cooldown_timer/room_speed) * 10);
+	ability_0_seconds_left = "0." + string(ability_0_seconds_left);
+}
+
+var ability_0_text_pos_x = ability_0_pos_x + diff + (sprite_get_width(ability_slot[0])/2);
+var ability_0_text_pos_y = ability_0_pos_y + diff + (sprite_get_height(ability_slot[0])/2);
+
+if ability_0_seconds_left != "0.0"
+{
+	draw_text(ability_0_text_pos_x,ability_0_text_pos_y,string(ability_0_seconds_left));
+}
 #endregion
-	
-	
-
 
 
 

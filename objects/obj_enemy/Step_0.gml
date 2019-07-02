@@ -36,13 +36,13 @@ if my_hp <= 0
 	//now that we know the items we wish to drop...drop them
 	for(var i = 0; i < ds_list_size(found_MATERIAL_LIST_list); i += 1;)
 	{
-		var what_item_image_to_use = ds_list_find_value(found_MATERIAL_LIST_list,i);
-		if what_item_image_to_use != MATERIAL_LIST.NOTHING
+		var what_item_image_index_to_use = ds_list_find_value(found_MATERIAL_LIST_list,i);
+		if what_item_image_index_to_use != MATERIAL_LIST.NOTHING
 		{		
 			with (instance_create_depth(x + (30 * i),y + (30 * i),depth,obj_item_on_floor))
 			{
-				sprite_index = spr_all_materials;
-				image_index = what_item_image_to_use;
+				sprite_index = scr_get_sprite_index_from_item_number(what_item_image_index_to_use);
+				image_index = what_item_image_index_to_use;
 				my_item_number = scr_get_item_number(sprite_index,image_index);
 			}
 		}
@@ -65,12 +65,7 @@ if my_hp <= 0
 	
 	
 	
-	
-	//grant the player some experience
-	with(obj_player)
-	{
-		my_current_exp += other.my_death_exp_reward;
-	}
+
 	
 	
 	

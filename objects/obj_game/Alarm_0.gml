@@ -13,7 +13,7 @@ global.freeze_character = false;
 
 if instance_exists(obj_player)
 {
-	obj_player.my_weapons[obj_player.current_weapon].visible = true;
+	obj_player.my_weapon.visible = true;
 	obj_player.can_switch_state = true;
 }
 

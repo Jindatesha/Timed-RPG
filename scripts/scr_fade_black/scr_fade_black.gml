@@ -11,7 +11,7 @@ var fade_out_max_time = argument[1];
 
 if instance_exists(obj_player)
 {
-	obj_player.my_weapons[obj_player.current_weapon].visible = false;
+	obj_player.my_weapon.visible = false;
 	obj_player.can_switch_state = false;
 }
 

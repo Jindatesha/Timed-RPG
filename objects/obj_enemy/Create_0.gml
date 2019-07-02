@@ -43,8 +43,6 @@ my_monster_type = MONSTER.SLIME;
 h_speed = 0;
 v_speed = 0;
 
-
-//how much this monster drops in terms of exp
-my_death_exp_reward = 10;
+has_been_aggroed = false;//if true: follow the player and attack indefinitely 
 
 
